@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class Location {
 
-	private static String name;
-	private static String desc;
+	private String name;
+	private String desc;
 	private HashMap<String, Location> map = new HashMap<>();
 
 	public Location(String name, String desc) {
@@ -18,16 +18,16 @@ public class Location {
 
 	}
 
-	public static String getLocation() {
+	public String getLocation() {
 		return name;
 
 	}
 	
-	public static String getName() {
+	public String getName() {
 		return name;
 	}
 	
-	public static String describeYourself() {
+	public String describeYourself() {
 		return desc; 
 
 	}
