@@ -37,7 +37,7 @@ public class Player {
 	}
 
 	public String doCommand(String command) {
-		if (command.equals("east") || command.equals("west") || command.equals("north") || command.equals("south")) {
+		if (command.equals("öst") || command.equals("väst") || command.equals("norr") || command.equals("syd")) {
 
 			Location moveTo = position.getNB(command);
 			

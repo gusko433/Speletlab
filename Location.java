@@ -28,12 +28,31 @@ public class Location {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public String describeYourself() {
-		return desc;
 
+	public void setEntry() {
+		this.entry = true;
+	}
+	
+	public Boolean getEntry() {
+		return this.entry;
+	}
+	
+	public String describeYourself() {
+		if (entry) {
+			return this.desc;
+		}
+		return this.longDesc;
+	}
+	
+	public String getDesc() {
+		return this.desc;
+	}
+	
+	public String getLongDesc() {
+		return this.longDesc;
 	}
 
 	public Location getNB(String direction) {
@@ -44,23 +63,19 @@ public class Location {
 		}
 
 	}
-	
-	public void setEntry() {
-		this.entry = true;
-	}
 
 	public String firstTime() {
+		String desc;
+		desc = describeYourself();
+		
 		if (entry) {
-			return "Välkommen tillbaka till " + this.name + ", här kan du gå riktiningarna:";
+			return "Välkommen tillbaka till " + this.name + desc + ", här kan du gå riktiningarna:";
 		} else {
 			this.entry = true;
-			return "Välkommen till " + this.name + ", " + this.longDesc + ", här kan du gå riktiningarna:";
+			return "Välkommen till " + this.name + ", " + desc + ", här kan du gå riktiningarna:";
 		}
 	}
-	public Set<String> allowedPath(Location location) {
-		Set<String> directions = map.keySet();
-		return directions;
+	void allowedPath(Location location) {
+		
 	}
-
-	
 }

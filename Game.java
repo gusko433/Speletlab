@@ -14,31 +14,45 @@ public class Game {
 
 	public Game() {
 
-		Location stora = new Location("Stora", "Nu dansar du loss på Stora!", "Lång beskrivning stora");
-		Location garderob = new Location("Garderob", "Du letar nu efter kvarglömda jackor i gardden", "Lång beskrivning garderob");
-		Location baljan = new Location("Baljan", "Välkommen, sugen på kaffe?", "Lång beskrivning baljan");
-		Location hem = new Location("Hem", "Är du trött", "Lång beskrivning hem");
-		Location entre = new Location("Entre", "wilkammen", "Lång beskrivning entre");
+		Location stora = new Room("Stora", " Nu dansar du loss på Stora!", "Lång beskrivning stora");
+		Location garderob = new Room("Garderob", "Du letar nu efter kvarglömda jackor i gardden", "Lång beskrivning garderob");
+		Location baljan = new Room("Baljan", "Välkommen, sugen på kaffe?", "Lång beskrivning baljan");
+		Location hem = new Room("Hem", "Är du trött", "Lång beskrivning hem");
+		Location entre = new Room("Entre", "wilkammen", "Lång beskrivning entre");
+		Location amfi = new OpenAreas("Amfi", "ta en cigg", "Ta en rbv");
+		Location havet = new OpenAreas("Blå havet", "Kort beskrivning", "lång beskrivning");
 
 		locations.add(entre);
 		locations.add(stora);
 		locations.add(garderob);
 		locations.add(baljan);
 		locations.add(hem);
+		locations.add(amfi);
+		locations.add(havet);
+		
+		entre.connect("öst", stora);
+		entre.connect("väst", baljan);
+		entre.connect("norr", garderob);
+		entre.connect("syd", hem);
 
-		entre.connect("east", stora);
-		entre.connect("west", baljan);
-		entre.connect("north", garderob);
-		entre.connect("south", hem);
+		stora.connect("väst", entre);
+		stora.connect("syd", amfi);
+		
 
-		stora.connect("west", entre);
+		baljan.connect("öst", entre);
 
-		baljan.connect("east", entre);
+		garderob.connect("syd", entre);
 
-		garderob.connect("south", entre);
+		hem.connect("norr", entre);
 
-		hem.connect("north", entre);
-
+		amfi.connect("norr", stora);
+		amfi.connect("syd", havet);
+		
+		havet.connect("norr", amfi);
+		
+		
+		
+		
 	}
 	
 	public Player getPlayer(Player player) {
@@ -69,7 +83,8 @@ public class Game {
 			
 			System.out.println(player.doCommand(command));
 			
-			System.out.println(player.getPos().allowedPath(player.getPos()));
+			player.getPos().allowedPath(path);
+
 
 		}
 	}
