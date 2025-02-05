@@ -10,14 +10,15 @@ public class Game {
 
 	Location path;
 	String command;
+	
 
 	public Game() {
 
-		Location stora = new Location("Stora", "Nu dansar du loss på Stora!");
-		Location garderob = new Location("Garderob", "Du letar nu efter kvarglömda jackor i gardden");
-		Location baljan = new Location("Baljan", "Välkommen, sugen på kaffe?");
-		Location hem = new Location("Hem", "Är du trött");
-		Location entre = new Location("Entre", "wilkammen");
+		Location stora = new Location("Stora", "Nu dansar du loss på Stora!", "Lång beskrivning stora");
+		Location garderob = new Location("Garderob", "Du letar nu efter kvarglömda jackor i gardden", "Lång beskrivning garderob");
+		Location baljan = new Location("Baljan", "Välkommen, sugen på kaffe?", "Lång beskrivning baljan");
+		Location hem = new Location("Hem", "Är du trött", "Lång beskrivning hem");
+		Location entre = new Location("Entre", "wilkammen", "Lång beskrivning entre");
 
 		locations.add(entre);
 		locations.add(stora);
@@ -47,6 +48,7 @@ public class Game {
 	public void run() {
 
 		this.player = new Player(locations.get(0), command);
+		this.player.getPos().setEntry();
 		
 		System.out.println("Välkommen in i Kårallen!");
 		player.inputName(keyboard);
@@ -55,17 +57,19 @@ public class Game {
 		System.out.println(
 				"Ditt mål är att hitta hemsläp. För att öka din sannolikhet att lyckas ska du klara uppdrag på olika ställen i lokalen.");
 		System.out.println("Förflytta dig genom att ange ett väderstreck nedan. Ange 'hjälp' för att få hjälp.");
+		System.out.println("Du befinner dig i entren");
 
 		
 
 		while (true) {
-			System.out.println("Du befinner dig just nu i " + player.getPos().getName() + ".");
-			System.out.println(player.getPos().describeYourself());
 			System.out.println("Vad vill du göra?");
 			this.command = keyboard.nextLine();
 			
+			
+			
 			System.out.println(player.doCommand(command));
 			
+			System.out.println(player.getPos().allowedPath(player.getPos()));
 
 		}
 	}

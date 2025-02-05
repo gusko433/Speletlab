@@ -1,11 +1,15 @@
 
 import java.util.Scanner;
+import java.util.Set;
+import java.util.HashMap;
+
 
 public class Player {
 
 	private String name;
 	private Location position;
 	private static int snus = 20;
+	public HashMap<String, Location> map = new HashMap<>();
 
 	public Player(Location position, String name) {
 		this.position = position;
@@ -41,7 +45,7 @@ public class Player {
 			if (moveTo != null) {
 				
 				this.position = moveTo;
-				return "You moved to " + moveTo.getName();
+				return moveTo.firstTime();
 
 			} else {
 				return "Inget i den riktningen";
@@ -51,5 +55,9 @@ public class Player {
 		else {
 			return "felaktigt commando";
 		}
+
+		
 	}
+	
+	
 }
