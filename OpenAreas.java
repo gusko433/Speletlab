@@ -5,8 +5,8 @@ public class OpenAreas extends Location {
 	
 	private static String weather = "regn";
 
-	public OpenAreas(String name, String desc, String longDesc) {
-		super(name, desc, longDesc);
+	public OpenAreas(String name, String desc, String longDesc, Item item) {
+		super(name, desc, longDesc, item);
 	}
 	
 	public void allowedPath(Location location) {
@@ -17,9 +17,9 @@ public class OpenAreas extends Location {
 	@Override
 	public String describeYourself(){
 		if (getEntry()) {
-			return getDesc() + " Just nu är det " + weather + " på denna platsen";
+			return getDesc() + " Just nu är det " + weather + " på denna platsen.";
 		}
-		return getLongDesc() + " Just nu är det " + weather + " på denna platsen";
+		return getLongDesc() + " Just nu är det " + weather + " på denna platsen.";
 		}
 	
 	

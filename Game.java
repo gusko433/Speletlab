@@ -10,17 +10,23 @@ public class Game {
 
 	Location path;
 	String command;
-	
 
 	public Game() {
 
-		Location stora = new Room("Stora", " Nu dansar du loss på Stora!", "Lång beskrivning stora");
-		Location garderob = new Room("Garderob", "Du letar nu efter kvarglömda jackor i gardden", "Lång beskrivning garderob");
-		Location baljan = new Room("Baljan", "Välkommen, sugen på kaffe?", "Lång beskrivning baljan");
-		Location hem = new Room("Hem", "Är du trött", "Lång beskrivning hem");
-		Location entre = new Room("Entre", "wilkammen", "Lång beskrivning entre");
-		Location amfi = new OpenAreas("Amfi", "ta en cigg", "Ta en rbv");
-		Location havet = new OpenAreas("Blå havet", "Kort beskrivning", "lång beskrivning");
+		Item spade = new Item(2.0, "spade", 2, "Med mig kan du gräva hål i marken");
+		Item slaif = new Item(0.001, "slaijf", 800, "Motverkar trötthet");
+
+		Location stora = new Room("Stora", " Nu dansar du loss på Stora!", "Lång beskrivning stora.", spade);
+		Location garderob = new Room("Garderob", "Du letar nu efter kvarglömda jackor i gardden.",
+				"Lång beskrivning garderob.", spade);
+		Location baljan = new Room("Baljan", "Sugen på kaffe?", "Lång beskrivning baljan.", null);
+		Location hem = new Room("Hem", "Ska du gå hem?", "Lång beskrivning hem.", null);
+		Location entre = new Room("Entre", "Du kom in!", "Lång beskrivning entre.", null);
+		Location amfi = new OpenAreas("Amfi", "Ta en cigg.", "Ta en rbv.", null);
+		Location havet = new OpenAreas("Blå havet", "Här är det stort och platt.", "Lång beskrivning havet.", null);
+		Location logen = new Room("Linda Bengtzings loge", "Här har du upplevt allt!", "Här kan du uppleva allt!",
+				slaif);
+		Location gasquen = new Room("Gasquen", "Här finns en bar", "Här kan du äta mat, dricka öl och mingla!", null);
 
 		locations.add(entre);
 		locations.add(stora);
@@ -29,32 +35,37 @@ public class Game {
 		locations.add(hem);
 		locations.add(amfi);
 		locations.add(havet);
-		
-		entre.connect("öst", stora);
-		entre.connect("väst", baljan);
-		entre.connect("norr", garderob);
-		entre.connect("syd", hem);
+		locations.add(logen);
+		locations.add(gasquen);
 
-		stora.connect("väst", entre);
-		stora.connect("syd", amfi);
-		
+		entre.connect("syd", stora);
+		entre.connect("öst", garderob);
+		entre.connect("väst", hem);
+		entre.connect("ner", baljan);
 
-		baljan.connect("öst", entre);
+		stora.connect("norr", entre);
+		stora.connect("väst", amfi);
 
-		garderob.connect("syd", entre);
+		baljan.connect("syd", gasquen);
+		baljan.connect("upp", entre);
 
-		hem.connect("norr", entre);
+		gasquen.connect("norr", baljan);
+		gasquen.connect("öst", logen);
 
-		amfi.connect("norr", stora);
-		amfi.connect("syd", havet);
-		
-		havet.connect("norr", amfi);
-		
-		
-		
-		
+		logen.connect("väst", gasquen);
+
+		garderob.connect("väst", entre);
+
+		hem.connect("öst", entre);
+		hem.connect("väst", havet);
+
+		amfi.connect("öst", stora);
+		amfi.connect("väst", havet);
+
+		havet.connect("öst", amfi);
+
 	}
-	
+
 	public Player getPlayer(Player player) {
 		return player;
 	}
@@ -63,7 +74,7 @@ public class Game {
 
 		this.player = new Player(locations.get(0), command);
 		this.player.getPos().setEntry();
-		
+
 		System.out.println("Välkommen in i Kårallen!");
 		player.inputName(keyboard);
 		System.out.println("Hej " + player.getName()
@@ -73,18 +84,12 @@ public class Game {
 		System.out.println("Förflytta dig genom att ange ett väderstreck nedan. Ange 'hjälp' för att få hjälp.");
 		System.out.println("Du befinner dig i entren");
 
-		
-
 		while (true) {
 			System.out.println("Vad vill du göra?");
 			this.command = keyboard.nextLine();
-			
-			
-			
-			System.out.println(player.doCommand(command));
-			
-			player.getPos().allowedPath(path);
 
+			System.out.println(player.doCommand(command));
+			player.getPos().allowedPath(path);
 
 		}
 	}
